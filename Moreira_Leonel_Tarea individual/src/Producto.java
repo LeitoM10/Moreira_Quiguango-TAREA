@@ -1,30 +1,89 @@
-import java.util.Scanner;
 public class Producto {
-    String nombre;
-    double precio;
-    int cantidad;
-    public void ingresarDatos() {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Ingrese el nombre del producto: ");
-        nombre = sc.nextLine();
-        System.out.print("Ingrese el precio: ");
-        precio = sc.nextDouble();
-        System.out.print("Ingrese la cantidad: ");
-        cantidad = sc.nextInt();
-    }
-    public void mostrarFactura() {
-        double total = precio * cantidad;
-        double descuento = 0;
-        if (total > 1000) {
-            descuento = total * 0.10;
+
+    public String codigo;
+    public String nombre;
+    public String categoria;
+
+    private double precio;
+    private int stock;
+    private int stockMinimo;
+
+    public Producto(String codigo, String nombre, String categoria,
+                    double precio, int stock, int stockMinimo) {
+
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.categoria = categoria;
+
+        if (precio > 0) {
+            this.precio = precio;
+        } else {
+            System.out.println("Error: precio inválido");
+            this.precio = precio; 
         }
-        double totalPagar = total - descuento;
-        System.out.println("\n----------- FACTURA -----------\n");
-        System.out.println("Producto: " + nombre);
-        System.out.println("Precio unitario: " + precio);
-        System.out.println("Cantidad: " + cantidad);
-        System.out.println("Subtotal: " + total);
-        System.out.println("Descuento: " + descuento);
-        System.out.println("\nTotal a pagar: " + totalPagar);
+
+        if (stock >= 0) {
+            this.stock = stock;
+        } else {
+            System.out.println("Error: stock inválido");
+            this.stock = 0;
+        }
+
+        if (stockMinimo >= 0) {
+            this.stockMinimo = stockMinimo;
+        } else {
+            System.out.println("Error: stock mínimo inválido");
+            this.stockMinimo = 0;
+        }
+    }
+
+    public void actualizarPrecio(double nuevoPrecio) {
+        if (nuevoPrecio > 0) {
+            precio = nuevoPrecio;
+        } else {
+            System.out.println("Error: precio no puede ser <= 0");
+        }
+    }
+
+    public void actualizarStock(int nuevoStock) {
+        if (nuevoStock >= 0) {
+            stock = nuevoStock;
+        } else {
+            System.out.println("Error: stock no puede ser negativo");
+        }
+    }
+
+    public void actualizarStockMinimo(int nuevoMinimo) {
+        if (nuevoMinimo >= 0) {
+            stockMinimo = nuevoMinimo;
+        } else {
+            System.out.println("Error: stock mínimo no puede ser negativo");
+        }
+    }
+
+    public double calcularValorInventario() {
+        return precio * stock;
+    }
+
+    public String evaluarEstado() {
+        if (stock == 0) {
+            return "Producto agotado";
+        } else if (stock < stockMinimo) {
+            return "Requiere reposición";
+        } else {
+            return "Stock suficiente";
+        }
+    }
+
+    public void mostrarReporte() {
+        System.out.println("\n--- REPORTE ---");
+        System.out.println("Código: " + codigo);
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Categoría: " + categoria);
+        System.out.println("Precio: " + precio);
+        System.out.println("Stock: " + stock);
+        System.out.println("Stock mínimo: " + stockMinimo);
+        System.out.println("Valor inventario: " + calcularValorInventario());
+        System.out.println("Estado: " + evaluarEstado());
     }
 }
