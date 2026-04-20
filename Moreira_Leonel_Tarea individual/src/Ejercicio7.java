@@ -1,26 +1,20 @@
-public class Main {
-    public static void main(String[] args) {
+public static void main(String[] args) {
+    InventarioProducto p = new InventarioProducto();
 
-        Producto p = new Producto(
-                "PRD-105",
-                "Disco SSD 1TB",
-                "Almacenamiento",
-                89.50,
-                12,
-                8
-        );
+    p.mostrarReporte();
 
-        p.mostrarReporte();
+    System.out.println("\n--- ACTUALIZACIÓN ---");
 
-        System.out.println("\n--- ACTUALIZACIÓN ---");
-        p.actualizarPrecio(95.00);
-        p.actualizarStock(5);
+    p.actualizarPrecio(95.00);
+    p.actualizarStock(5);
+    p.actualizarStockMinimo(6);
 
-        p.mostrarReporte();
+    p.mostrarReporte();
 
-        System.out.println("\n--- CASO INVÁLIDO ---");
-        p.actualizarStock(-3);
+    System.out.println("\n--- CASO INVÁLIDO ---");
 
-        p.mostrarReporte();
-    }
+    p.actualizarStock(-3);
+    p.actualizarStockMinimo(-2);
+
+    p.mostrarReporte();
 }
