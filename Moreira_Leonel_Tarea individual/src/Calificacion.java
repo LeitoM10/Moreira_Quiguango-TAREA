@@ -1,6 +1,5 @@
+import java.util.Scanner;
 public class Calificacion {
-    import java.util.Scanner;
-    public class Calificacion {
         String nombre;
         double nota1, nota2, nota3;
         public void ingresarDatos() {
